@@ -1,139 +1,7 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:test_rendering/data/content_repository.dart';
 import 'package:test_rendering/models/content.dart';
-=======
-import 'package:test_rendering/pages.dart'; // Import pages.dart
->>>>>>> ea3f20d43a1173665ae99c2c07cc4b9090628888
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: '전기기사 실기 기출 문제',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.light,
-        appBarTheme: const AppBarTheme(
-          color: Colors.blue,
-          foregroundColor: Colors.white,
-        ),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(fontSize: 18),
-        ),
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-// BottomNavigationBar를 사용하는 메인 페이지
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
-
-  // 각 BottomNavigationBar 탭에 대응하는 위젯들
-  final List<Widget> _pages = [
-    const SplashScreen(), // 홈 페이지
-    const YearRoundSearchPage(), // 연도검색 페이지
-    const SubjectSearchPage(), // 주제검색 페이지 (새로 추가)
-    const ReviewPage(), // 복습 페이지 (새로 추가)
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex], // 현재 선택된 페이지 표시
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed, // 고정된 아이템과 라벨의 위치
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: '연도검색',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: '주제검색',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.replay),
-            label: '복습',
-          ),
-        ],
-        selectedItemColor: Colors.blue, // 선택된 아이템 색상
-        unselectedItemColor: Colors.grey, // 선택되지 않은 아이템 색상
-        backgroundColor: Colors.white, // BottomNavigationBar 배경 색상
-        showUnselectedLabels: true, // 선택되지 않은 항목에도 label을 표시
-      ),
-    );
-  }
-}
-
-// 스플래시 스크린 -> 홈 페이지로 사용
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('전기 마이스터',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center, // 가로로 중앙 정렬
-          children: [
-            Image.asset('assets/logo.png', height: 150), // 로고 추가
-            const SizedBox(height: 20),
-            const Text(
-              '전기기사 실기 기출 문제',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            const Text('● 연도/회차 별 학습\n ● 주제 별 학습',
-                style: TextStyle(fontSize: 24)),
-            const SizedBox(height: 30),
-<<<<<<< HEAD
-
-=======
->>>>>>> ea3f20d43a1173665ae99c2c07cc4b9090628888
-            const Text(
-              '아래 탭에서 원하는 기능을 선택하세요.',
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-<<<<<<< HEAD
 
 // 기존 ContentRenderer를 "연도검색" 페이지로 변경
 class YearRoundSearchPage extends StatefulWidget {
@@ -257,8 +125,6 @@ class _YearRoundSearchPageState extends State<YearRoundSearchPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //  const SizedBox(height: 10),
-
                   // 문제 목록 내용
                   Expanded(
                     child: FutureBuilder<List<Content>>(
@@ -360,7 +226,6 @@ class _SubjectSearchPageState extends State<SubjectSearchPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 25.0),
         child: SingleChildScrollView(
-          // 스크롤 가능하도록 추가
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: topicSubtopics.keys.map((topic) {
@@ -371,8 +236,13 @@ class _SubjectSearchPageState extends State<SubjectSearchPage> {
                 children: [
                   PopupMenuButton<String>(
                     onSelected: (subtopic) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Selected: $subtopic')),
+                      // 부주제를 선택하면 SubtopicDetailPage로 이동
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SubtopicDetailPage(subtopic: subtopic),
+                        ),
                       );
                     },
                     itemBuilder: (context) => subtopics
@@ -384,10 +254,9 @@ class _SubjectSearchPageState extends State<SubjectSearchPage> {
                         .toList(),
                     offset: const Offset(150, 0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width *
-                          0.55, // 가로 길이 반으로 줄임
+                      width: MediaQuery.of(context).size.width * 0.55,
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, // 모든 박스의 가로 여백 조정
+                        horizontal: 12.0,
                         vertical: 20.0,
                       ),
                       decoration: BoxDecoration(
@@ -412,14 +281,13 @@ class _SubjectSearchPageState extends State<SubjectSearchPage> {
                       ),
                     ),
                   ),
-                  if (topicIndex < 4) // 화살표를 위에서 3개까지만 표시
+                  if (topicIndex < 4)
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Icon(Icons.arrow_downward,
                           size: 27, color: Colors.grey),
                     ),
-                  if (topicIndex >= 4) // 화살표 없는 경우 세로 간격 추가
-                    const SizedBox(height: 5.0),
+                  if (topicIndex >= 4) const SizedBox(height: 5.0),
                 ],
               );
             }).toList(),
@@ -430,7 +298,69 @@ class _SubjectSearchPageState extends State<SubjectSearchPage> {
   }
 }
 
-// "복습" 페이지
+class SubtopicDetailPage extends StatelessWidget {
+  final String subtopic;
+
+  const SubtopicDetailPage({super.key, required this.subtopic});
+
+  @override
+  Widget build(BuildContext context) {
+    // ContentRepository에서 데이터 가져오기
+    final ContentRepository contentRepository = ContentRepository();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Details for $subtopic',
+          style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: FutureBuilder<List<Content>>(
+        future: contentRepository.fetchContents(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No content available.'));
+          }
+
+          // 데이터 필터링: 부주제(sTopic)가 선택한 subtopic과 일치하는 항목만 추출
+          final List<Content> filteredContentList = snapshot.data!
+              .where((content) => content.sTopic == subtopic)
+              .toList();
+
+          // 필터링된 데이터를 목록으로 표시
+          return ListView.builder(
+            itemCount: filteredContentList.length,
+            itemExtent: 50,
+            itemBuilder: (context, index) {
+              final content = filteredContentList[index];
+              return ListTile(
+                title: Text(
+                  "${content.nr}. ${content.title}",
+                  style: const TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  // 각 문제 클릭 시 상세 페이지로 이동
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProblemDetailPage(content: content),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+// 복습 페이지
 class ReviewPage extends StatelessWidget {
   const ReviewPage({super.key});
 
@@ -441,14 +371,10 @@ class ReviewPage extends StatelessWidget {
         title: const Text('복습',
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
       ),
-      body: const Center(
-        child: Text('복습 기능을 구현하세요!', style: TextStyle(fontSize: 20)),
-      ),
+      body: const Center(child: Text('복습 페이지')),
     );
   }
 }
-
-// ProblemDetailPage 및 기타 코드는 기존과 동일 (생략 가능)
 
 class ProblemDetailPage extends StatelessWidget {
   final Content content;
@@ -467,60 +393,75 @@ class ProblemDetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('문제 상세'),
+        title: const Text(
+          '문제 상세',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "$questionNumber. $title",
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              color: Colors.grey[200],
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      children: questionSpans,
-                      style: const TextStyle(fontSize: 18, color: Colors.black),
-                    ),
-                  ),
-                  if (content.qImgPath != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Image.asset(content.qImgPath!),
-                    ),
-                ],
+      body: InteractiveViewer(
+        panEnabled: true, // 드래그로 이동 가능
+        boundaryMargin: const EdgeInsets.all(50), // 이동 범위 설정
+        minScale: 0.1, // 최소 스케일
+        maxScale: 4.0, // 최대 스케일
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "$questionNumber. $title",
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              color: Colors.teal[50],
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      children: answerSpans,
-                      style: const TextStyle(fontSize: 18, color: Colors.black),
+              const SizedBox(height: 10),
+              Container(
+                color: Colors.grey[200],
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: questionSpans,
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.black),
+                      ),
                     ),
-                  ),
-                  if (content.aImgPath != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Image.asset(content.aImgPath!),
-                    ),
-                ],
+                    if (content.qImgPath != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Image.asset(
+                          content.qImgPath!,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              Container(
+                color: Colors.teal[50],
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: answerSpans,
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.black),
+                      ),
+                    ),
+                    if (content.aImgPath != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Image.asset(content.aImgPath!),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -570,8 +511,4 @@ class ProblemDetailPage extends StatelessWidget {
       baseline: TextBaseline.alphabetic,
     );
   }
-  // 문제 목록
-// 문제 목록 제목
 }
-=======
->>>>>>> ea3f20d43a1173665ae99c2c07cc4b9090628888

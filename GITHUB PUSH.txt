@@ -1,0 +1,5 @@
+git remote add origin https://github.com/jehglee60/flutter_math_fork.git
+
+
+git config --global user.name "JeHyung Lee"
+git config --global user.email "jehglee60@gmail.com"

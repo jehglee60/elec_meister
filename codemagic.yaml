@@ -10,7 +10,7 @@ workflows:
       - name: Clean previous builds
         script: flutter clean
       - name: Run app with Impeller disabled (before build)
-        script: flutter run --no-enable-impeller
+        script: flutter run --no-enable-impeller -d chrome
       - name: Build APK
         script: flutter build apk --release --no-enable-impeller # Impeller 비활성화 플래그 추가
       - name: Build iOS

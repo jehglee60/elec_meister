@@ -1,0 +1,5 @@
+flutter run --no-enable-impeller
+
+
+flutter build apk --release --no-enable-impeller
+

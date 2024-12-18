@@ -4,6 +4,10 @@ workflows:
     max_build_duration: 60
     environment:
       flutter: stable
+
+      # Impeller 비활성화 관련 환경 변수 추가
+      variables:
+        FLUTTER_NO_ENABLE_IMPELLER: true # 비슷한 환경 변수를 사용하여 Impeller 비활성화
     scripts:
       - name: Install dependencies
         script: flutter pub get

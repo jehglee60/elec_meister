@@ -10,6 +10,9 @@ workflows:
       - name: Clean previous builds
         script: flutter clean
       - name: Build APK
-        script: flutter build apk --release
+        script: flutter build apk --release --no-enable-impeller
+      - name: Build iOS
+        script: flutter build ios --release --no-enable-impeller
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
+      - build/ios/iphoneos/*.ipa

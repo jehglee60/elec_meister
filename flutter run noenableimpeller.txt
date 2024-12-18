@@ -3,3 +3,6 @@ flutter run --no-enable-impeller
 
 flutter build apk --release --no-enable-impeller
 
+
+
+git remote set-url origin https://github.com/jehglee60/elec_meister.git

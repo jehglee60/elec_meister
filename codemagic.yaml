@@ -4,19 +4,15 @@ workflows:
     max_build_duration: 60
     environment:
       flutter: stable
-
-      # Impeller 비활성화 관련 환경 변수 추가
-      variables:
-        FLUTTER_NO_ENABLE_IMPELLER: true # 비슷한 환경 변수를 사용하여 Impeller 비활성화
     scripts:
       - name: Install dependencies
         script: flutter pub get
       - name: Clean previous builds
         script: flutter clean
       - name: Build APK
-        script: flutter build apk --release # --no-enable-impeller 플래그 제거
+        script: flutter build apk --release --no-enable-impeller # Impeller 비활성화 플래그 추가
       - name: Build iOS
-        script: flutter build ios --release
+        script: flutter build ios --release --no-enable-impeller # Impeller 비활성화 플래그 추가
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
       - build/ios/iphoneos/*.ipa

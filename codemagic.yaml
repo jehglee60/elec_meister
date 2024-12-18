@@ -9,12 +9,12 @@ workflows:
         script: flutter pub get
       - name: Clean previous builds
         script: flutter clean
-      - name: Run app with Impeller disabled (before build)
-        script: flutter run --no-enable-impeller -d chrome
+      - name: Run in Headless mode on Web
+        script: flutter run --no-enable-impeller -d web-server
       - name: Build APK
-        script: flutter build apk --release --no-enable-impeller # Impeller 비활성화 플래그 추가
+        script: flutter build apk --release # Impeller 비활성화 플래그 추가
       - name: Build iOS
-        script: flutter build ios --release --no-enable-impeller # Impeller 비활성화 플래그 추가
+        script: flutter build ios --release # Impeller 비활성화 플래그 추가
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
       - build/ios/iphoneos/*.ipa

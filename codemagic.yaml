@@ -10,11 +10,14 @@ workflows:
       - name: Clean previous builds
         script: flutter clean
 
+      # APK 빌드
       - name: Build APK
         script: flutter build apk --release # Impeller 비활성화 플래그 삭제
-      - name: Build iOS
-        script: flutter build ios --debug # Impeller 비활성화 플래그 삭제
+
+      # Web 빌드 추가
+      - name: Build Flutter Web
+        script: flutter build web
+
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-      - build/ios/iphoneos/*.app # Debug 모드로 빌드된 .app 파일을 아티팩트로 저장
-#      - build/ios/iphoneos/*.ipa
+      - build/web/** # 웹 빌드 결과를 아티팩트에 포함

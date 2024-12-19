@@ -13,7 +13,8 @@ workflows:
       - name: Build APK
         script: flutter build apk --release # Impeller 비활성화 플래그 삭제
       - name: Build iOS
-        script: flutter build ios --release # Impeller 비활성화 플래그 삭제
+        script: flutter build ios --debug # Impeller 비활성화 플래그 삭제
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-      - build/ios/iphoneos/*.ipa
+      - build/ios/iphoneos/*.app # Debug 모드로 빌드된 .app 파일을 아티팩트로 저장
+#      - build/ios/iphoneos/*.ipa

@@ -3,3 +3,17 @@ git remote add origin https://github.com/jehglee60/flutter_math_fork.git
 
 git config --global user.name "JeHyung Lee"
 git config --global user.email "jehglee60@gmail.com"
+
+/////////
+git status
+git add .
+git commit -m "Update codemagic.yaml, pubspec files and flutter run script"
+git push origin main
+
+
+////////////////
+adb install app-release.apk
+
+
+adb uninstall com.example.test_rendering
+adb install app-release.apk

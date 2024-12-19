@@ -3,6 +3,16 @@ flutter run --no-enable-impeller
 
 flutter build apk --release --no-enable-impeller
 
+git add codemagic.yaml "flutter run noenableimpeller.txt"
 
 
 git remote set-url origin https://github.com/jehglee60/elec_meister.git
+
+
+///////////////
+git status
+git add codemagic.yaml
+git commit -m "Specify device for Impeller disabled run"
+git push origin main
+
+
